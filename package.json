@@ -1,0 +1,21 @@
+{
+  "name": "archive-data-downloader",
+  "version": "1.0.0",
+  "description": "Extract data from any k8s container like a pro.",
+  "exports": "./cli.js",
+  "bin": {
+    "archive-data-downloader": "./cli.js"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xaverric/archive-data-downloader.git"
+  },
+  "type": "module",
+  "author": "Daniel Jílek",
+  "license": "MIT",
+  "dependencies": {
+    "inquirer": "^9.1.2",
+    "winston": "^3.8.2"
+  }
+}
