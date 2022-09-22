@@ -34,6 +34,16 @@ export const cmdArgumentsDefinition = [
     multiple: true,
     type: String,
     description: 'In case filter is option is used, you can define the specific search keys.'
+  },
+  {
+    name: 'basePath',
+    type: String,
+    description: 'Base path for data downloading from the container. If defined, it has priority over he "basePath" provided in the configuration file.'
+  },
+  {
+    name: 'output',
+    type: String,
+    description: 'Output path where the results will be stored. If defined, it has priority over he "output" provided in the configuration file.'
   }
 ];
 

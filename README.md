@@ -25,6 +25,7 @@ downloadd, help commands. All these can be used as default commands without prov
 File path to the configuration object
 
 **Configuration File Convention**
+
 All configuration fields are mandatory.
 ```json
 {
@@ -44,12 +45,17 @@ In case the configuration is not provided, the tool searches for the configurati
 ### --folders
 Folders to be downloaded. In case single mode is used, first value is used only. In case range value is used, first and second value is used to determine the date range.
 
-### --filer
+### --filter
 Flag definining whether the tool should filter file names by specific keys
 
 ### --filterKeys
 In case filter is option is used, you can define the specific search keys.
 
+### --basePath
+Base path for data downloading from the container. If defined, it has priority over he "basePath" provided in the configuration file.
+
+### --output
+Output path where the results will be stored. If defined, it has priority over he "output" provided in the configuration file.
 ## Interactive Input
 Tool supports interactive provision of parameters. It is only mandatory to provide a configuration object to the tool. In case other parameters are missing the tool will ask for them interactively.
 

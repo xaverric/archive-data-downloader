@@ -24,16 +24,23 @@ const readJsonFile = filePath => {
 };
 
 export const readConfiguration = async cmdArgs => {
-    let configuration = {};
+    let configuration;
+
     if (cmdArgs.config) {
         configuration = readJsonFile(path.resolve(cmdArgs.config))
     } else {
         configuration = readJsonFile(CONFIG_DEFAULT_PATH);
     }
+
+    // prompt user for required parameters if not provided in command line
     configuration.mode = cmdArgs.mode || await promptMode();
     configuration.folders = cmdArgs.folders || await promptFolders(configuration.mode);
     configuration.filter = cmdArgs.filter || await promptFilter();
     configuration.filterKeys = cmdArgs.filterKeys || await promptFilterKeys(configuration.filter);
+
+    // override basePath and output from command line if available
+    configuration.basePath = cmdArgs.basePath || configuration.basePath;
+    configuration.output = cmdArgs.output || configuration.output;
 
     if (configuration.mode === "range") {
         configuration.folders = postProcessDataRange(configuration.folders[0], configuration.folders[1]);
