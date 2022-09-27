@@ -27,7 +27,7 @@ export const cmdArgumentsDefinition = [
   {
     name: 'filter',
     type: Boolean,
-    description: 'Flag definining whether the tool should filter file names by specific keys.'
+    description: 'Flag defining whether the tool should filter file names by specific keys.'
   },
   {
     name: 'filterKeys',
@@ -44,7 +44,12 @@ export const cmdArgumentsDefinition = [
     name: 'output',
     type: String,
     description: 'Output path where the results will be stored. If defined, it has priority over he "output" provided in the configuration file.'
-  }
+  },
+  {
+    name: 'noprompt',
+    type: Boolean,
+    description: 'Disable interactive parameters fill.'
+  },
 ];
 
 export const cmdArguments = commandLineArgs(cmdArgumentsDefinition, { stopAtFirstUnknown: true });

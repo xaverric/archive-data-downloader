@@ -33,10 +33,10 @@ export const readConfiguration = async cmdArgs => {
     }
 
     // prompt user for required parameters if not provided in command line
-    configuration.mode = cmdArgs.mode || await promptMode();
-    configuration.folders = cmdArgs.folders || await promptFolders(configuration.mode);
-    configuration.filter = cmdArgs.filter || await promptFilter();
-    configuration.filterKeys = cmdArgs.filterKeys || await promptFilterKeys(configuration.filter);
+    configuration.mode = cmdArgs.noprompt ? cmdArgs.mode : cmdArgs.mode ||  await promptMode();
+    configuration.folders = cmdArgs.noprompt ? cmdArgs.folders : cmdArgs.folders || await promptFolders(configuration.mode);
+    configuration.filter = cmdArgs.noprompt ? cmdArgs.filter : cmdArgs.filter || await promptFilter();
+    configuration.filterKeys = !configuration.filter ? [] : cmdArgs.noprompt ? cmdArgs.filterKeys : cmdArgs.filterKeys || await promptFilterKeys(configuration.filter);
 
     // override basePath and output from command line if available
     configuration.basePath = cmdArgs.basePath || configuration.basePath;
