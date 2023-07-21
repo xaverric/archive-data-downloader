@@ -36,6 +36,11 @@ export const cmdArgumentsDefinition = [
     description: 'In case filter is option is used, you can define the specific search keys.'
   },
   {
+    name: 'globalFilter',
+    type: String,
+    description: 'In case filter is option is used, you can define the specific global filter applicable for every searched item for download.'
+},
+  {
     name: 'basePath',
     type: String,
     description: 'Base path for data downloading from the container. If defined, it has priority over he "basePath" provided in the configuration file.'

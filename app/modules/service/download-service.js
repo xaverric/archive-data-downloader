@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
-import { copy } from "../k8s/kubectl-copy-data.js";
-import { listFiles, listFolders } from "../k8s/kubectl-list-data.js";
-import { LOG } from "../logger/logger.js";
+import {copy} from "../k8s/kubectl-copy-data.js";
+import {listFiles, listFolders} from "../k8s/kubectl-list-data.js";
+import {LOG} from "../logger/logger.js";
 
 export const getAvailableFolders = async (configuration, podName) => {
     // list folders from k8s pod under the basePath
@@ -15,6 +15,9 @@ export const getAvailableFiles = async (configuration, podName, folder) => {
     // filter available files if search keys defined
     if (configuration.filter) {
         availableFiles = availableFiles.filter(fileName => configuration.filterKeys.some(filterKey => fileName.includes(filterKey)));
+        if (configuration.globalFilter) {
+            availableFiles = availableFiles.filter(fileName => fileName.includes(configuration.globalFilter));
+        }
     }
     // filter-out invalid filenames (empty)
     return availableFiles.filter(fileName => fileName);
@@ -35,7 +38,7 @@ const downloadFiles = async (configuration, podName, folder, folderIndex, files,
     for (const [fileIndex, file] of files.entries()) {
         cmdBottomBar.log.write(`Downloading file ${file}`);
         LOG.info(`Downloading file ${file}`);
-        
+
         await copy(configuration, podName, file, `${file.replace(configuration.basePath, configuration.output)}`);
 
         cmdBottomBar.updateBottomBar(`Current folder: ${folder} (${folderIndex + 1} of ${configuration.folders.length})\nProcessed files: ${fileIndex + 1} of ${files.length}`);
