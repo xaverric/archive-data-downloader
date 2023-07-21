@@ -15,9 +15,9 @@ export const getAvailableFiles = async (configuration, podName, folder) => {
     // filter available files if search keys defined
     if (configuration.filter) {
         availableFiles = availableFiles.filter(fileName => configuration.filterKeys.some(filterKey => fileName.includes(filterKey)));
-        if (configuration.globalFilter) {
-            availableFiles = availableFiles.filter(fileName => fileName.includes(configuration.globalFilter));
-        }
+    }
+    if (configuration.globalFilter) {
+        availableFiles = availableFiles.filter(fileName => fileName.includes(configuration.globalFilter));
     }
     // filter-out invalid filenames (empty)
     return availableFiles.filter(fileName => fileName);
