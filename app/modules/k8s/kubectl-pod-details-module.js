@@ -2,7 +2,9 @@ import {callCliCommand} from "../../cmd/cmd-exec-module.js";
 
 export const getPodName = async configuration => {
     let podsMetadata = await getPodsMetadata(configuration);
-    return podsMetadata.find(item => item?.metadata?.annotations?.APP_PACK_URL_PATH === configuration.uuApp)?.metadata?.name;
+    return podsMetadata.find(item => {
+        return item?.metadata?.annotations?.APP_PACK_URL_PATH === configuration.uuApp || item?.metadata?.labels?.["app.kubernetes.io/name"] === configuration.uuApp
+    })?.metadata?.name;
 }
 
 export const getPodsMetadata = async configuration => {
@@ -17,11 +19,13 @@ export const getPods = async configuration => {
 };
 
 const getArrayFromLineContent = (lines) => {
-    return lines.toString()
-        .replace(/} {/g, "};{")
-        .slice(1)
-        .slice(0, -1)
-        .split(";");
+    let result = lines.toString().replace(/} {/g, "}||||{");
+    if (process.platform === "win32") {
+        result = result
+            .slice(1)
+            .slice(0, -1)
+    }
+    return result.length ? result.split("||||") : [];
 };
 
 const getPodDetail = line => {
